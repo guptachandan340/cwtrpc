@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:CaptionPanel captionText="Sample" width="450px">
+		<g:VerticalPanel styleName="samplePanel">
+			<g:FlowPanel>
+				<g:Label
+					text="You have been successfully authenticated. Your client session will expire after three minutes of inactivity. In case of a session timeout the login view will be displayed again. The following sections provide access to remote services. The login() method of login service returned the following role names that are associated with your user account:" />
+				<g:Label ui:field="roleNamesLabel" />
+			</g:FlowPanel>
+			<g:VerticalPanel>
+				<g:Label
+					text="The following button invokes the getInfo() method of the sample remote service. The sample remote service is defines as a session scope bean. After clicking this button a number of requests is displayed that indicates how many times this button has been clicked during the life time of the client session. This value is stored in a property of sample remote service that is asociated with the client session." />
+				<g:Button text="Get Info" ui:field="infoButton"
+					styleName="gwt-Button sampleButton" />
+			</g:VerticalPanel>
+			<g:VerticalPanel>
+				<g:Label
+					text="Access to method getDemoInfo() of sample remote service is only granted to users having role ROLE_DEMO. When you click the button without having that role, the server will reject the invocation of this method and error message will be displayed." />
+				<g:Button text="Get Demo Info" ui:field="demoInfoButton"
+					styleName="gwt-Button sampleButton" />
+			</g:VerticalPanel>
+			<g:VerticalPanel>
+				<g:Label
+					text="When you click the logout button your client session will be invalidated on service side and login view will be displayed again." />
+				<g:Button text="Logout" ui:field="logoutButton" styleName="gwt-Button sampleButton" />
+			</g:VerticalPanel>
+		</g:VerticalPanel>
+	</g:CaptionPanel>
+</ui:UiBinder> 

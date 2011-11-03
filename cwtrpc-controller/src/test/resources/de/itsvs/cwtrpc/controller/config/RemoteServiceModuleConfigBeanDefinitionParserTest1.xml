@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2011 IT Services VS GmbH
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:controller="http://schema.itsvs.de/cwtrpc/controller"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://schema.itsvs.de/cwtrpc/controller http://schema.itsvs.de/cwtrpc/cwtrpc-controller-0.9.xsd">
+
+	<bean name="testService1" class="de.itsvs.cwtrpc.controller.config.TestService1Impl" />
+	<bean name="testService2" class="de.itsvs.cwtrpc.controller.config.TestService2Impl" />
+	<bean name="testService3" class="de.itsvs.cwtrpc.controller.config.TestService3Impl" />
+	<bean name="testService4" class="de.itsvs.cwtrpc.controller.config.TestService4Impl" />
+	<bean name="testService5" class="de.itsvs.cwtrpc.controller.config.TestService5Impl" />
+	<bean name="testService10" class="de.itsvs.cwtrpc.controller.config.TestService10Impl" />
+	<bean name="testService20" class="de.itsvs.cwtrpc.controller.config.TestService20Impl" />
+
+	<controller:module id="serviceModule101" module-name="myModule5">
+		<controller:description>
+			This is a demo service module.
+		</controller:description>
+	</controller:module>
+	
+	<controller:module id="serviceModule102" module-name="myModule6" response-compression-enabled="true" />
+	<controller:module id="serviceModule103" module-name="myModule7" rpc-token-protection-enabled="true" />
+	<controller:module id="serviceModule104" module-name="myModule8" rpc-token-validator-ref="testRpcTokenValidatorXyz" />
+
+	<controller:service-group id="serviceGroup200">
+		<controller:service service-ref="testService10" 
+			service-interface="de.itsvs.cwtrpc.controller.config.TestService10" />
+		<controller:service service-ref="testService1" />
+	</controller:service-group>
+	<controller:service-group id="serviceGroup201">
+		<controller:service service-ref="testService20" relative-path="test20.service" />
+	</controller:service-group>
+	
+	<controller:module id="serviceModule210" module-name="myModule100">
+		<controller:service service-ref="testService2" />
+		<controller:autowired-service-group base-packages="de.itsvs.cwtrpc.controller.config.">
+			<controller:include-filter expression=".+Service3" />
+		</controller:autowired-service-group>
+		<controller:autowired-service-group base-packages="de.itsvs.cwtrpc.controller.config.">
+			<controller:include-filter expression=".+Service4" />
+		</controller:autowired-service-group>
+		<controller:service-group-ref name="serviceGroup201" />
+		<controller:service-group>
+			<controller:service service-ref="testService3" />
+		</controller:service-group>
+		<controller:service-group-ref name="serviceGroup200" />
+		<controller:service-group>
+			<controller:service service-ref="testService4" />
+		</controller:service-group>
+	</controller:module>
+</beans>

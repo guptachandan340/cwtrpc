@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2011 IT Services VS GmbH
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<xs:schema elementFormDefault="qualified"
+	targetNamespace="http://schema.itsvs.de/cwtrpc/controller" version="1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:controller="http://schema.itsvs.de/cwtrpc/controller">
+	
+	<xs:element name="cache-control">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Provides the configuration that is used by the CacheControlFilter.
+	Depending on the request URI and the request method, the values of the
+	HTTP response headers Cache-Control, Expires and Pragma can be
+	configured. It can also provide a default configuration for the GWT
+	produced files containing the pattern cache and nocache in their file
+	name.
+
+	For further information about HTTP cache control check:
+	http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="uri" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	Configures the HTTP response header Cache-Control, Expires and Pragma
+	for the specified request URI pattern (attribute "value") and the
+	specified request method (attribute "method"). The request URI patterns
+	and request methods are evaluated in their specified order. The first
+	matching combination is used to create the resulting HTTP response
+	headers. After finding the first matching combination, no further
+	request URI patterns and request methods are evaluated for a match. If
+	there is no matching combination of request URI pattern and request
+	method, no action will be performed.
+						]]></xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="description" type="controller:descriptionType"
+								minOccurs="0">
+								<xs:annotation>
+									<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+									]]></xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="value" type="xs:string" use="required">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	Pattern that is matched against the incoming request URI. This incoming
+	request URI starts every time with a slash and does neither include the
+	context path nor any query parameters. The pattern must cover the full
+	incoming request URI (full match is performed). By default the pattern
+	must have Ant path pattern style (check
+	http://ant.apache.org/manual/dirtasks.html#patterns for syntax
+	details). A different type can be selected with attribute "type". 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="type" type="controller:filterTypeType"
+							default="ant">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	Type of the pattern specified by attribute "value". The default type is
+	Ant path pattern style.
+
+	ant: Ant path pattern style
+	http://ant.apache.org/manual/dirtasks.html#patterns
+
+	regex: Regular expression pattern style
+	http://download.oracle.com/javase/1,5.0/docs/api/java/util/regex/Pattern.html#sum
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="method" type="controller:requestMethodType">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	Request method that is matched against the request method of the
+	incoming request. If this attribute is not specified, any request
+	method of the incoming request will match.
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="public" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	False when cache control directive private should be included in HTTP
+	response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="private" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive private should be included in HTTP
+	response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="no-cache" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive no-cache should be included in HTTP
+	response header Cache-Control. Since this directive should be a
+	replacement for HTTP 1.0 response header Pragma with value no-cache,
+	the HTTP response header Pragma is also set to no-cache (attribute
+	"pragma-no-cache" is set to true implicitly, cannot be overridden).
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="no-store" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive no-store should be included in HTTP
+	response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="no-transform" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive no-transform should be included in
+	HTTP response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="must-revalidate" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive must-revalidate should be included
+	in HTTP response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="proxy-revalidate" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive proxy-revalidate should be included
+	in HTTP response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="max-age"
+							type="controller:cacheControlDurationType">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	Sets the duration in seconds of the cache control directive max-age. If
+	this attribute is not specified, this cache control directive will not
+	be included in HTTP response header Cache-Control. If there is no value
+	for attribute "expires", the value of this attribute will also be used
+	for that attribute.
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="s-maxage"
+							type="controller:cacheControlDurationType">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when cache control directive s-maxage should be included in HTTP
+	response header Cache-Control. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="expires" type="xs:int">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	If the value is not negative, the resulting value of response header
+	Expires will be calculated from the current date and time plus the
+	number of seconds specified by this attribute. If the value is
+	negative, the resulting value will be set to 31st of December 1969
+	00:00:00 GMT. If neither this attribute nor attribute "max-age" is
+	specified, the response header Expires will not be set by
+	CacheControlFilter.  
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="pragma-no-cache" type="xs:boolean"
+							default="false">
+							<xs:annotation>
+								<xs:documentation><![CDATA[
+	True when the value of HTTP response header Pragma should be set to
+	no-cache. If this value is false and the value of attribute "no-cache"
+	is true, HTTP response header Pragma will also be set to no-cache. 
+								]]></xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Unique bean name of the resulting configuration bean used by
+	CacheControlFilter. By default the filter uses "cacheControlConfig" as
+	bean name. This is also used as default bean name when this attribute
+	is not specified. If only one CacheControlFilter is required by the
+	application there is normally no need to specify this attribute and to
+	modify this default bean name.			
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="lower-case-match" type="xs:boolean"
+				default="true">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	True when the incoming request URI should be converted to lower case
+	letters before matching against the URI pattern values. False when the
+	match should be perfomed case sensitive.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="defaults-enabled" type="xs:boolean"
+				default="true">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	True when default configuration for GWT produced files containing the
+	pattern cache and nocache in their file name should be included. These
+	are defined implicitly before any other uri elements. False when this
+	configuration should not be included.
+
+	- URI pattern ".+\\.cache\\.\\w+" (regular expression)
+	Cache-Control: max-age=[cache-max-age]
+	Expires: [now + cache-max-age]
+
+	- URI pattern ".+\\.nocache\\.\\w+" (regular expression)
+	Cache-Control: no-cache
+	Expires: Wed, 31 Dec 1969 00:00:00 GMT
+	Pragma: no-cache
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="cache-max-age" type="controller:cacheControlDurationType"
+				default="2419200">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Specifies the duration of seconds that is used for cache control
+	directive max-age and expires header of cachable files when attribute
+	"defaults-enabled" is set to true. This value affects only the
+	defaults. The default value of this attribute 2419200 specifies a
+	duration of 28 days.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="serialization-policy-provider">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Provides the serialization policy provider that can be used by the
+	controller. If you define the controller and the serialization policy
+	provider has not been defined before, the controller will define its
+	own serialization policy provider bean.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="description" type="controller:descriptionType"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+						]]></xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Unique bean name of the resulting serialization policy provider bean.
+	By default the bean name is "serializationPolicyProvider". If only one 
+	controller is required by the application there is normally no need to 
+	specify this attribute and modify this default bean name.				
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="controller">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines the configuration used by RemoteServiceControllerServlet. 
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="description" type="controller:descriptionType"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+						]]></xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="module" type="controller:moduleType">
+						<xs:annotation>
+							<xs:documentation><![CDATA[
+	Defines a GWT module that provides remote services.
+							]]></xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="module-ref" type="controller:beanReferenceType">
+						<xs:annotation>
+							<xs:documentation><![CDATA[
+	References a module by its bean name (attribute "id" of "module").
+							]]></xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:ID">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Unique bean name of the resulting configuration bean used by
+	RemoteServiceControllerServlet. By default the servlet uses
+	"remoteServiceControllerConfig" as bean name. This is also used as
+	default bean name when this attribute is not specified. If only one
+	RemoteServiceControllerServlet is required by the application, there is
+	normally no need to specify this attribute and modify this default bean
+	name.			
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="serialization-policy-provider-ref"
+				type="xs:string" default="serializationPolicyProvider">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	References a serialization policy provider by its bean name. This is
+	only required if a previously defined serialization policy provider
+	should be used and the bean name of this predefined serialization
+	provider differs "serializationPolicyProvider". Otherwise the
+	controller registers a serialization policy provider with bean name
+	"serializationPolicyProvider". 
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="response-compression-enabled" type="xs:boolean"
+				default="true">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	True if the response of a remote service invocation should be
+	compressed before it is sent to the client. Even if this feature is
+	enabled, the response is only compressed if the client supports GZIP
+	compression and the response exceeds a specific size.
+
+	This setting can be overridden by included or referenced remote service
+	definitions.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="rpc-token-protection-enabled" type="xs:boolean"
+				default="false">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	True if the remote services should be protected by a RPC token that
+	must be validated before invoking the requested service method. The
+	token is validated with the specified RPC token validator. The token is
+	only validated if the specified token validator returns that the token
+	should be validated for the concreate incoming request.
+
+	This setting can be overridden by included or referenced remote service
+	definitions.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="rpc-token-validator-ref" type="xs:string"
+				default="rpcTokenService">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	References a RPC token validator (implements RpcTokenValidator) by its
+	bean name. The RPC token validator is used to validate the RPC token of
+	incoming remote service requests. RPC token protection must be enabled
+	for the remote service in order to perform such a validation.
+
+	By default the bean named "rpcTokenService" is used as validator. If there
+	is no such bean, the controller will create such a bean with class
+	DefaultXsrfTokenService, that provides also a remote token generator
+	service. This remote service can be used by client to request the token
+	that must be included in subsequent requests. In order to use this
+	remote service remotely it must be defined as remote service in the
+	controller configuration (not defined automatically).
+
+	This validator can be overridden by included or referenced remote service
+	definitions.		
+					]]></xs:documentation>
+				</xs:annotation>
+			
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="module">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a GWT module that provides remote services.
+
+	The resulting module can be referenced by the controller. Without
+	referencing the module, the defined module has no effect.	
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="controller:moduleType">
+					<xs:attribute name="id" type="xs:ID" use="required">
+					<xs:annotation>
+							<xs:documentation><![CDATA[
+	The bean name of the module configuration (can be used to reference the
+	module).
+							]]></xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="service-group">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a logic group of remote services and sub service groups.
+
+	The resulting service group can be referenced by its ID and can be
+	included as service group in a module or as sub service group in
+	another service group. Without referencing the service group, the
+	defined service group has no effect.	
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="controller:serviceGroupType">
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation><![CDATA[
+	The bean name of the service group configuration (can be used to
+	reference the service group).
+							]]></xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="autowired-service-group">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a group of remote services that match the specified conditions
+	(base packages, include filter and exclude filter). All beans that
+	fulfill the following conditions can be detected as autowired remote
+	services:
+
+	- implements exactly only interface that extends RemoteService
+	- remote service interface of bean specifies
+	RemoteServiceRelativePath annotation
+	- class of service can be determined without creating
+	instance of bean eagerly
+
+	The resulting service group can be referenced by its ID and can be
+	included as service group in a module or as sub service group in
+	another service group. Without referencing the service group, the
+	defined service group has no effect.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="controller:autowiredServiceGroupType">
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation><![CDATA[
+	The bean name of the service group configuration (can be used to
+	reference the service group).
+							]]></xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="cacheControlDurationType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Describes the duration value in seconds of cache control directives
+	max-age and s-maxage.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="filterTypeType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines possible pattern types that can be used by a value of a filter.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NCName">
+			<xs:enumeration value="regex">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Regular expression pattern syle.
+
+	Syntax details:
+	http://download.oracle.com/javase/1,5.0/docs/api/java/util/regex/Pattern.html#sum
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ant">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Ant path pattern style. If the path separator is a slash character (URI
+	or file system path) or a dot (full qualified class name) depends on
+	the context.
+
+	Syntax details:
+	http://ant.apache.org/manual/dirtasks.html#patterns
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="requestMethodType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines possible HTTP request methods that can be used to define a
+	filter.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NCName">
+			<xs:enumeration value="GET">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	HTTP request method GET.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POST">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	HTTP request method POST.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="descriptionType" mixed="true">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Description of configuration (does not affect configuration).
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded" />
+	</xs:complexType>
+	<xs:complexType name="beanReferenceType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a reference to a bean.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	Name of a bean that should be referenced.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:attributeGroup name="commonServiceAttributeGroup">
+		<xs:attribute name="response-compression-enabled" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	True if the response of a remote service invocation should be
+	compressed before it is sent to the client. Even if this feature is
+	enabled, the response is only compressed if the client supports GZIP
+	compression and the response exceeds a specific size.
+
+	If no value for this attribute is specified, the value for this attribute
+	is inherited from the container (controller, module or service group)
+	that includes or references this element.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="rpc-token-protection-enabled" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	True if the remote services should be protected by a RPC token that
+	must be validated before invoking the requested service method. The
+	token is validated with the specified RPC token validator. The token is
+	only validated of the specified token validator returns that the token
+	should be validated for the concreate incoming request.
+
+	If no value for this attribute is specified, the value for this attribute
+	is inherited from the container (controller, module or service group)
+	that includes or references this element.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="rpc-token-validator-ref" type="xs:string">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	References a RPC token validator (implements RpcTokenValidator) by its
+	bean name. The RPC token validator is used to validate the RPC token of
+	incoming remote service requests. RPC token protection must be enabled
+	for the remote service in order to perform such a validation.
+
+	If no value for this attribute is specified, the value for this attribute
+	is inherited from the container (controller, module or service group)
+	that includes or references this element.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:complexType name="serviceType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Describes a remote service.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="controller:descriptionType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="service-ref" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	References a remote service (implements RemoteService) by its bean 
+	name.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="service-interface" type="xs:string">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	The full qualified class name of the remote service interface that is
+	implemented by the specified remote service. If the specified remote
+	service implements more than one service interface (interface that
+	extends RemoteService interface), a value for this attribute must be
+	specified. Otherwise the interface that extends RemoteService interface
+	is used as remote service interface.
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="relative-path" type="xs:anyURI">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	The relative path of the remote service. It overrides the value
+	specified by annotation RemoteServiceRelativePath. If the service
+	interface of the remote service does not specify this annotation,
+	specifying a value for this attribute is required. Otherwise the value
+	specified by the annotation is used.
+
+	If the context path of the application is "/app" and the name of the GWT
+	module is "demo", the relative path for request URI
+	"/app/demo/hello.service" is "hello.service".
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="controller:commonServiceAttributeGroup" />
+	</xs:complexType>
+	<xs:group name="serviceGroup">
+		<xs:sequence>
+			<xs:element name="service" type="controller:serviceType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Defines a remote service.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="service-group" type="controller:serviceGroupType">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	Defines a logic group of remote services and sub service groups.
+						]]></xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="service-group-ref" type="controller:beanReferenceType">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	References a group of remote services by its bean name (attribute "id" 
+	of "service-group").
+						]]></xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="autowired-service-group" type="controller:autowiredServiceGroupType">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+	Defines a group of remote services that match the specified conditions
+	(base packages, include filter and exclude filter). All beans that
+	fulfill the following conditions can be detected as autowired remote
+	services:
+
+	- implements exactly only interface that extends RemoteService
+	- remote service interface of bean specifies
+	RemoteServiceRelativePath annotation
+	- class of service can be determined without creating
+	instance of bean eagerly		
+						]]></xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="serviceGroupType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a logic group of remote services and sub service groups.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="controller:descriptionType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="controller:serviceGroup" />
+		</xs:sequence>
+		<xs:attributeGroup ref="controller:commonServiceAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="moduleType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a GWT module that provides remote services.
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="controller:descriptionType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="controller:serviceGroup" />
+		</xs:sequence>
+		<xs:attribute name="module-name" type="xs:anyURI" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	The module name as it is defined by GWT configuration (i.e. value of
+	attribute "rename-to" specified in gwt.xml). 
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="controller:commonServiceAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="autowiredServiceGroupType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Defines a group of remote services that match the specified conditions
+	(base packages, include filter and exclude filter). All beans that
+	fulfill the following conditions can be detected as autowired remote
+	services:
+
+	- implements exactly only interface that extends RemoteService
+	- remote service interface of bean specifies 
+	RemoteServiceRelativePath annotation
+	- class of service can be determined without creating
+	instance of bean eagerly
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="controller:descriptionType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	Optional description of configuration in order to maintain it (does not
+	affect configuration).
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="include-filter" type="controller:classFilterType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	As soon as at least one include filter is specified, only remote
+	service interfaces that match one of the include filters are included
+	in the autowired service group type (no longer all that match the base
+	packages).
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="exclude-filter" type="controller:classFilterType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+	If a remote service interface that matches the specified base packages
+	and the include filters, matches any of the exclude filters, it will not
+	be included in the autowired service group.
+					]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="base-packages" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	Comma separated list of base package names of remote service interfaces
+	that should be included in the autowired service group. Base packages
+	are simply the starts of the full qualified class names of the remote
+	service interfaces.		
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="controller:commonServiceAttributeGroup" />
+	</xs:complexType>
+	<xs:complexType name="classFilterType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+	Describes a single class name filter that consists of an expression and
+	the type of the expression. 
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="expression" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	Pattern that is matched against the full qualified class name. The
+	pattern must cover the full qualified class name. By default the
+	pattern must have regular expression pattern style (check
+	http://download.oracle.com/javase/1,5.0/docs/api/java/util/regex/Pattern.html#sum
+	for syntax details). A different type can be selected with attribute
+	"type". 
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="controller:filterTypeType"
+			default="regex">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+	Type of the pattern specified by attribute "expression". The default type is
+	regular expression pattern style.
+
+	ant: Ant path pattern style (path separator is a dot character instead of slash)
+	http://ant.apache.org/manual/dirtasks.html#patterns
+
+	regex: Regular expression pattern style
+	http://download.oracle.com/javase/1,5.0/docs/api/java/util/regex/Pattern.html#sum
+				]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

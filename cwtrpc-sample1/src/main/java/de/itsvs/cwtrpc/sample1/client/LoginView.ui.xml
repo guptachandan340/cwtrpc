@@ -1,0 +1,111 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:CaptionPanel captionText="Login" width="450px">
+		<g:DockPanel>
+			<g:Dock direction="NORTH">
+				<g:VerticalPanel>
+					<g:Label
+						text="Please enter a valid combination of user name and password. The table below contains valid combinations." />
+					<g:Grid styleName="accountTable td">
+						<g:row>
+							<g:customCell>
+								<g:InlineLabel text="User Name" wordWrap="false"
+									styleName="highlightedLabel" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="Password" wordWrap="false"
+									styleName="highlightedLabel" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="Roles" wordWrap="false"
+									styleName="highlightedLabel" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="Remark" wordWrap="false"
+									styleName="highlightedLabel" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:InlineLabel text="demo" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="test" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="ROLE_SAMPLE, ROLE_DEMO" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:InlineLabel text="demo2" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="test" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="ROLE_SAMPLE" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:InlineLabel text="disabled" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="test" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="ROLE_SAMPLE" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="Account disabled" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:InlineLabel text="locked" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="test" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="ROLE_SAMPLE" />
+							</g:customCell>
+							<g:customCell>
+								<g:InlineLabel text="Account locked" />
+							</g:customCell>
+						</g:row>
+					</g:Grid>
+					<g:SimplePanel ui:field="errorMessagePanel"
+						styleName="errorMessagePanel">
+						<g:Label ui:field="errorMessageLabel" styleName="errorMessageLabel" />
+					</g:SimplePanel>
+				</g:VerticalPanel>
+			</g:Dock>
+			<g:Dock direction="CENTER">
+				<g:Grid styleName="userPasswordInputPanel">
+					<g:row>
+						<g:customCell>
+							<g:Label text="User Name" styleName="highlightedLabel" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox ui:field="userNameField" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Password" styleName="highlightedLabel" />
+						</g:customCell>
+						<g:customCell>
+							<g:PasswordTextBox ui:field="passwordField" />
+						</g:customCell>
+					</g:row>
+				</g:Grid>
+			</g:Dock>
+			<g:Dock direction="SOUTH">
+				<g:Button ui:field="loginButton" text="Login" />
+			</g:Dock>
+		</g:DockPanel>
+	</g:CaptionPanel>
+</ui:UiBinder> 

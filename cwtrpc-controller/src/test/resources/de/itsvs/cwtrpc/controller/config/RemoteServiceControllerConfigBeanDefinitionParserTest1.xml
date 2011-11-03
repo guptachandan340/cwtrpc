@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2011 IT Services VS GmbH
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:controller="http://schema.itsvs.de/cwtrpc/controller"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://schema.itsvs.de/cwtrpc/controller http://schema.itsvs.de/cwtrpc/cwtrpc-controller-0.9.xsd">
+
+	<bean name="testService1" class="de.itsvs.cwtrpc.controller.config.TestService1Impl" />
+	<bean name="testService2" class="de.itsvs.cwtrpc.controller.config.TestService2Impl" />
+	<bean name="testService3" class="de.itsvs.cwtrpc.controller.config.TestService3Impl" />
+	<bean name="testService4" class="de.itsvs.cwtrpc.controller.config.TestService4Impl" />
+
+	<controller:serialization-policy-provider id="serializationPolicyProvider2" />
+
+	<controller:controller id="serviceController100">
+		<controller:module module-name="myModule700" />
+	</controller:controller>
+	<controller:controller id="serviceController101" 
+			response-compression-enabled="true" 
+			rpc-token-protection-enabled="false"
+			rpc-token-validator-ref="rpcTokenService"
+			serialization-policy-provider-ref="serializationPolicyProvider">
+		<controller:module module-name="myModule701" />
+	</controller:controller>
+	<controller:controller id="serviceController102" 
+			response-compression-enabled="false">
+		<controller:module module-name="myModule701" />
+	</controller:controller>
+	<controller:controller id="serviceController103" 
+			rpc-token-protection-enabled="true">
+		<controller:module module-name="myModule701" />
+	</controller:controller>
+	<controller:controller id="serviceController104" 
+			rpc-token-validator-ref="rpcTokenService2">
+		<controller:module module-name="myModule701" />
+	</controller:controller>
+	<controller:controller id="serviceController105" 
+			serialization-policy-provider-ref="serializationPolicyProvider2">
+		<controller:module module-name="myModule701" />
+	</controller:controller>
+	
+	<controller:module id="serviceModule1" module-name="myModule100">
+		<controller:service service-ref="testService1" />
+	</controller:module>
+	<controller:module id="serviceModule2" module-name="myModule200">
+		<controller:service service-ref="testService2" />
+	</controller:module>
+	
+	<controller:controller>
+		<controller:description>
+			This is a test controller configuration.
+		</controller:description>
+		<controller:module module-name="myModule400">
+			<controller:service service-ref="testService3" />
+		</controller:module>
+		<controller:module module-name="myModule500">
+			<controller:service service-ref="testService4" />
+		</controller:module>
+		<controller:module-ref name="serviceModule1" />
+		<controller:module-ref name="serviceModule2" />
+	</controller:controller>
+</beans>

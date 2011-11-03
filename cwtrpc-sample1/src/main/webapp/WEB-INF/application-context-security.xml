@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2011 IT Services VS GmbH
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.4.xsd">
+
+	<security:global-method-security
+		secured-annotations="enabled" jsr250-annotations="enabled" />
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="demo" password="test"
+					authorities="ROLE_SAMPLE,ROLE_DEMO" />
+				<security:user name="demo2" password="test"
+					authorities="ROLE_SAMPLE" />
+				<security:user name="disabled" password="test"
+					authorities="ROLE_SAMPLE" disabled="true" />
+				<security:user name="locked" password="test"
+					authorities="ROLE_SAMPLE" locked="true" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="securityContextRepository"
+		class="org.springframework.security.web.context.HttpSessionSecurityContextRepository">
+		<property name="allowSessionCreation" value="false" />
+	</bean>
+
+	<bean id="authenticationFilter"
+		class="de.itsvs.cwtrpc.security.UsernamePasswordRpcAuthenticationFilter">
+		<property name="filterProcessesUrl" value="/sample1/login.service" />
+		<property name="methodName" value="login" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="serviceInterface"
+			value="de.itsvs.cwtrpc.sample1.client.service.LoginService" />
+	</bean>
+	<bean id="logoutFilter" class="de.itsvs.cwtrpc.security.RpcLogoutFilter">
+		<property name="filterProcessesUrl" value="/sample1/login.service" />
+		<property name="methodName" value="logout" />
+		<property name="serviceInterface"
+			value="de.itsvs.cwtrpc.sample1.client.service.LoginService" />
+	</bean>
+	<bean id="sessionManagementFilter" class="de.itsvs.cwtrpc.security.RpcSessionManagementFilter">
+		<property name="securityContextRepository" ref="securityContextRepository" />
+	</bean>
+	<bean id="authenticationEntryPoint"
+		class="de.itsvs.cwtrpc.security.RpcAuthenticationEntryPoint" />
+
+	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint"
+		security-context-repository-ref="securityContextRepository" path-type="regex">
+		<security:intercept-url
+			pattern="/.*\.(?:png|css|js|gif|jpg|html|rpc|ico)(?:\?.*)?" filters="none" />
+		<security:intercept-url pattern="/sample1/login\.service"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" method="POST" />
+		<security:intercept-url pattern="/.+" access="ROLE_SAMPLE" />
+		<security:session-management
+			session-fixation-protection="none" />
+		<security:custom-filter position="LOGOUT_FILTER"
+			ref="logoutFilter" />
+		<security:custom-filter position="FORM_LOGIN_FILTER"
+			ref="authenticationFilter" />
+		<security:custom-filter position="SESSION_MANAGEMENT_FILTER"
+			ref="sessionManagementFilter" />
+	</security:http>
+</beans>
