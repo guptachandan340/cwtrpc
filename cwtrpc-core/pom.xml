@@ -28,7 +28,7 @@
 	<artifactId>cwtrpc-core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>cwtrpc</name>
+	<name>cwtrpc-core</name>
 
 	<organization>
 		<name>IT Services VS GmbH</name>
