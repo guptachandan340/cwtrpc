@@ -35,11 +35,22 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<developers>
+		<developer>
+			<id>vschmidt</id>
+			<name>Volker Schmidt</name>
+			<email>volker.schmidt@itsvs.de</email>
+			<timezone>+1</timezone>
+			<organization>IT Services VS GmbH</organization>
+			<organizationUrl>http://www.itsvs.de/</organizationUrl>
+		</developer>
+	</developers>
 
 	<modules>
 		<module>cwtrpc-core</module>
 		<module>cwtrpc-controller</module>
 		<module>cwtrpc-security</module>
+		<module>cwtrpc-sample1</module>
 	</modules>
 
 	<properties>
