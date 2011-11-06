@@ -50,7 +50,7 @@
 				<executions>
 					<execution>
 						<configuration>
-							<module>de.itsvs.cwtrpc.sample1.Sample1</module>
+							<module>de.itsvs.cwtrpc.sample1.sample1</module>
 						</configuration>
 						<goals>
 							<goal>compile</goal>
