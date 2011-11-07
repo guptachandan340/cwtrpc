@@ -23,7 +23,8 @@
 	<version>0.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>cwtrpc</name>
+	<name>Controlled Web Toolkit RPC - POM</name>
+	<url>http://itsvs.github.com/cwtrpc/</url>
 
 	<organization>
 		<name>IT Services VS GmbH</name>
@@ -31,8 +32,9 @@
 	</organization>
 	<licenses>
 		<license>
-			<name>Apache 2</name>
+			<name>Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<developers>
@@ -47,7 +49,8 @@
 	</developers>
 
 	<scm>
-		<connection>${scm.connection}</connection>
+		<url>https://github.com/itsvs/cwtrpc</url>
+		<connection>scm:git:git://github.com/itsvs/cwtrpc.git</connection>
 	</scm>
 	<distributionManagement>
 		<repository>
@@ -76,9 +79,8 @@
 
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<gwt.version>2.4.0</gwt.version>
-		
-		<!-- default distribution settings -->
-		<scm.connection>scm:git:git://github.com/itsvs/cwtrpc.git</scm.connection>
+	
+		<manifest.builtBy>${user.name}</manifest.builtBy>
 		<repository.url>http://maven-repository.itsvs.de</repository.url>
 		<snapshotRepository.url>http://maven-snapshot-repository.itsvs.de</snapshotRepository.url>
 	</properties>
@@ -117,6 +119,29 @@
 							<manifest>
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							</manifest>
+							<manifestEntries>
+        						<Built-By>${manifest.builtBy}</Built-By>
+        						<License-Name>Apache 2</License-Name>
+        						<License-Url>http://www.apache.org/licenses/LICENSE-2.0.txt</License-Url>
+     						</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1.1</version>
+					<configuration>
+						<archive>
+							<index>true</index>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+							<manifestEntries>
+        						<Built-By>${manifest.builtBy}</Built-By>
+        						<License-Name>Apache 2</License-Name>
+        						<License-Url>http://www.apache.org/licenses/LICENSE-2.0.txt</License-Url>
+     						</manifestEntries>
 						</archive>
 					</configuration>
 				</plugin>
