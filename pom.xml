@@ -46,6 +46,24 @@
 		</developer>
 	</developers>
 
+	<scm>
+		<connection>${scm.connection}</connection>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>maven-repository.itsvs.de</id>
+			<layout>default</layout>
+			<name>IT Services VS GmbH - Public Repository</name>
+			<url>${repository.url}/</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-snapshot-repository.itsvs.de</id>
+			<layout>default</layout>
+			<name>IT Services VS GmbH - Public Snapshot Repository</name>
+			<url>${snapshotRepository.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<modules>
 		<module>cwtrpc-core</module>
 		<module>cwtrpc-controller</module>
@@ -58,6 +76,11 @@
 
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<gwt.version>2.4.0</gwt.version>
+		
+		<!-- default distribution settings -->
+		<scm.connection>scm:git:git://github.com/itsvs/cwtrpc.git</scm.connection>
+		<repository.url>http://maven-repository.itsvs.de</repository.url>
+		<snapshotRepository.url>http://maven-snapshot-repository.itsvs.de</snapshotRepository.url>
 	</properties>
 
 	<build>
@@ -75,6 +98,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.1</version>
 			</plugin>
 		</plugins>
 		<pluginManagement>

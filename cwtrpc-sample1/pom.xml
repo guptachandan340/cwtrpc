@@ -50,6 +50,7 @@
 				<executions>
 					<execution>
 						<configuration>
+							<localWorkers>1</localWorkers>
 							<module>de.itsvs.cwtrpc.sample1.sample1</module>
 						</configuration>
 						<goals>
