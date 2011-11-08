@@ -14,8 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.itsvs</groupId>
@@ -24,7 +23,7 @@
 	<packaging>pom</packaging>
 
 	<name>Controlled Web Toolkit RPC - POM</name>
-	<url>http://itsvs.github.com/cwtrpc/</url>
+	<url>http://projects.itsvs.de/cwtrpc/</url>
 
 	<organization>
 		<name>IT Services VS GmbH</name>
@@ -51,13 +50,14 @@
 	<scm>
 		<url>https://github.com/itsvs/cwtrpc</url>
 		<connection>scm:git:git://github.com/itsvs/cwtrpc.git</connection>
+		<developerConnection>${scm.developerConnection}</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
 			<id>maven-repository.itsvs.de</id>
 			<layout>default</layout>
 			<name>IT Services VS GmbH - Public Repository</name>
-			<url>${repository.url}/</url>
+			<url>${repository.url}</url>
 		</repository>
 		<snapshotRepository>
 			<id>maven-snapshot-repository.itsvs.de</id>
@@ -81,6 +81,7 @@
 		<gwt.version>2.4.0</gwt.version>
 	
 		<manifest.builtBy>${user.name}</manifest.builtBy>
+		<scm.developerConnection>scm:git:ssh://git@github.com/itsvs/cwtrpc.git</scm.developerConnection>
 		<repository.url>http://maven-repository.itsvs.de</repository.url>
 		<snapshotRepository.url>http://maven-snapshot-repository.itsvs.de</snapshotRepository.url>
 	</properties>
@@ -143,6 +144,43 @@
         						<License-Url>http://www.apache.org/licenses/LICENSE-2.0.txt</License-Url>
      						</manifestEntries>
 						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+        			<groupId>org.apache.maven.plugins</groupId>
+        			<artifactId>maven-javadoc-plugin</artifactId>
+        			<version>2.8</version>
+        			<configuration>
+        				<links>
+        					<link>http://download.oracle.com/javaee/1.4/api</link>
+        					<link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
+        					<link>http://static.springsource.org/spring-security/site/docs/3.0.x/apidocs</link>
+        					<link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.4</link>
+        				</links>
+        				<header><![CDATA[<b>Controlled<br>Web Toolkit RPC</b>]]></header>
+						<footer><![CDATA[<b>Controlled<br>Web Toolkit RPC</b>]]></footer>
+						<bottom><![CDATA[
+							<div style="font-size:smaller;font-weight:bold;font-familiy:Arial,Helvetica,sans-serif;">
+								Copyright 2011 <a href="http://www.itsvs.de/" target="_blank">IT Services VS GmbH</a>
+							</div>
+							<div style="font-size:smaller;margin-top:7px;">
+        						<div>
+        							Licensed under the Apache License, Version 2.0 (the "License");
+ 									you may not use this file except in compliance with the License.
+  									You may obtain a copy of the License at
+								</div>
+								<div style="margin-top:2px;">
+									<a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a>
+      							</div>
+      							<div style="margin-top:2px;">
+  									Unless required by applicable law or agreed to in writing, software
+  									distributed under the License is distributed on an "AS IS" BASIS,
+  									WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  									See the License for the specific language governing permissions and
+  									limitations under the License.
+  								</div>
+        					</div>
+						]]></bottom>
 					</configuration>
 				</plugin>
 			</plugins>

@@ -29,7 +29,7 @@
 	<packaging>war</packaging>
 
 	<name>Controlled Web Toolkit RPC - Sample 1</name>
-	<url>http://itsvs.github.com/cwtrpc/</url>
+	<url>http://projects.itsvs.de/cwtrpc/</url>
 
 	<organization>
 		<name>IT Services VS GmbH</name>
