@@ -24,7 +24,14 @@
 
 	<name>Controlled Web Toolkit RPC - POM</name>
 	<url>http://projects.itsvs.de/cwtrpc/</url>
+	<inceptionYear>2011</inceptionYear>	
+	<description>Provides a controller component for GWT based remote services, that can be configured in a Spring XML application context configuration file. It also provides an optional integration of GWT based remote services into Spring Security.</description>
 
+	<issueManagement>
+		<system>GitHub Issues 2.0</system>
+		<url>https://github.com/itsvs/cwtrpc/issues</url>
+	</issueManagement>
+	
 	<organization>
 		<name>IT Services VS GmbH</name>
 		<url>http://www.itsvs.de/</url>
