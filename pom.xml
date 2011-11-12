@@ -161,7 +161,6 @@
         				<links>
         					<link>http://download.oracle.com/javaee/1.4/api</link>
         					<link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
-        					<link>http://static.springsource.org/spring-security/site/docs/3.0.x/apidocs</link>
         					<link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.4</link>
         				</links>
         				<header><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>CWTRPC<br>${project.version}</b></a>]]></header>
