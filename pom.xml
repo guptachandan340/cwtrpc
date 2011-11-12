@@ -164,8 +164,8 @@
         					<link>http://static.springsource.org/spring-security/site/docs/3.0.x/apidocs</link>
         					<link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.4</link>
         				</links>
-        				<header><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>CWTRPC - Controlled<br>Web Toolkit RPC</b></a>]]></header>
-						<footer><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>CWTRPC - Controlled<br>Web Toolkit RPC</b></a>]]></footer>
+        				<header><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>CWTRPC<br>${project.version}</b></a>]]></header>
+						<footer><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>Controlled<br>Web Toolkit RPC</b></a>]]></footer>
 						<bottom><![CDATA[
 							<div style="font-size:smaller;font-weight:bold;font-familiy:Arial,Helvetica,sans-serif;">
 								Copyright 2011 <a href="http://www.itsvs.de/" target="_blank">IT Services VS GmbH</a>
