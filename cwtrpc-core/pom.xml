@@ -29,7 +29,7 @@
 	<packaging>jar</packaging>
 
 	<name>Controlled Web Toolkit RPC - Core</name>
-	<url>http://projects.itsvs.de/cwtrpc/</url>
+	<url>http://projects.itsvs.de/cwtrpc/core-${project.version}/</url>
 	<inceptionYear>2011</inceptionYear>	
 	<description>Provides core functions that enables the development of a controller for GWT based remote services without requiring that other artifacts (like a security artifact) have direct dependencies to that specific controller.</description>
 

@@ -29,7 +29,7 @@
 	<packaging>war</packaging>
 
 	<name>Controlled Web Toolkit RPC - Sample 1</name>
-	<url>http://projects.itsvs.de/cwtrpc/</url>
+	<url>http://projects.itsvs.de/cwtrpc/sample1-${project.version}/</url>
 	<inceptionYear>2011</inceptionYear>	
 	<description>Provides a basic example that demonstrates how to configure GWT based remote services and how to intergrate them into Spring Security.</description>
 

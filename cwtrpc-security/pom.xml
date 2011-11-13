@@ -29,7 +29,7 @@
 	<packaging>jar</packaging>
 
 	<name>Controlled Web Toolkit RPC - Security</name>
-	<url>http://projects.itsvs.de/cwtrpc/</url>
+	<url>http://projects.itsvs.de/cwtrpc/security-${project.version}/</url>
 	<inceptionYear>2011</inceptionYear>	
 	<description>Provides an integration of GWT based remote services into Spring Security.</description>
 
