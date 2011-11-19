@@ -30,6 +30,14 @@
 		</param-value>
 	</context-param>
 	<context-param>
+		<description>
+			Defines the pre-loaded classes that are loaded before the Spring
+			XML application context is initialized. The classes that are 
+			included in the artifacts with the additional namespace 
+			configuration for Spring XML application context. See the 
+			description of ExtendedContextLoaderListener below for more 
+			information.
+		</description>
 		<param-name>contextLoaderPreloadedClasses</param-name>
 		<param-value>
 			org.springframework.security.config.SecurityNamespaceHandler
@@ -68,16 +76,27 @@
 	</filter-mapping>
 
 	<listener>
+		<description>
+			Should be used instead of the standard ContextLoaderListener 
+			that is provided by Spring, since artifacts resolved by Maven 
+			when using the Eclipse integrated Web Toolkit runtime are availble
+			only when explicitly loading them with the class loader. Otherwise
+			configuration files included in the artifact are not available 
+			(like namespace configuration used to configure Spring XML 
+			application context). One class of the required artifacts must be
+			loaded before initializing the Spring XML application context.
+			These classes are configured with the context parameter 
+			"contextLoaderPreloadedClasses".
+			
+			This is not required when you do not run the applicaion with the 
+			Eclipse integrated Web Toolkit runtimes.
+		</description>
 		<listener-class>de.itsvs.cwtrpc.core.ExtendedContextLoaderListener</listener-class>
 	</listener>
 
 	<servlet>
 		<servlet-name>Remote Service Servlet</servlet-name>
 		<servlet-class>de.itsvs.cwtrpc.controller.RemoteServiceControllerServlet</servlet-class>
-		<init-param>
-			<param-name>remoteServiceModuleName</param-name>
-			<param-value>sample1</param-value>
-		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
