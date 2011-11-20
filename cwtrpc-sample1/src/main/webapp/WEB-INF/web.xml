@@ -46,14 +46,26 @@
 	</context-param>
 
 	<filter>
+		<description>
+			Catches unexpected errors that are thrown in the filter chain and
+			creates a appropriate response for GWT RPC clients. This filter 
+			must only executed for GWT RPC requests.
+		</description>
 		<filter-name>Unexpected Error Filter</filter-name>
 		<filter-class>de.itsvs.cwtrpc.controller.UnexpectedErrorFilter</filter-class>
 	</filter>
 	<filter>
+		<description>
+			Sets the HTTP cache control headers.
+		</description>
 		<filter-name>Cache Control Filter</filter-name>
 		<filter-class>de.itsvs.cwtrpc.controller.CacheControlFilter</filter-class>
 	</filter>
 	<filter>
+		<description>
+			Standard Spring filter that invokes the Spring Security filter 
+			chain.
+		</description>
 		<filter-name>Spring Security Filter Chain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 		<init-param>
@@ -95,12 +107,16 @@
 	</listener>
 
 	<servlet>
-		<servlet-name>Remote Service Servlet</servlet-name>
+		<description>
+			The controller servlet that executed the GWT based remote 
+			services.
+		</description>
+		<servlet-name>Remote Service Controller Servlet</servlet-name>
 		<servlet-class>de.itsvs.cwtrpc.controller.RemoteServiceControllerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Remote Service Servlet</servlet-name>
+		<servlet-name>Remote Service Controller Servlet</servlet-name>
 		<url-pattern>*.service</url-pattern>
 	</servlet-mapping>
 

@@ -53,6 +53,40 @@ remote services.
 		</controller:controller>
 		...
 	</beans>
+	...
+	<web-app>
+	...
+		<servlet>
+			<servlet-name>Remote Service Controller Servlet</servlet-name>
+			<servlet-class>
+				de.itsvs.cwtrpc.controller.RemoteServiceControllerServlet
+			</servlet-class>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>Remote Service Controller Servlet</servlet-name>
+			<url-pattern>*.service</url-pattern>
+		</servlet-mapping>
+	...
+	</web-app>
+
+Note: If you would like to run your application with the GWT web application 
+server, which is also used by the GWT plugin for Eclipse, and you do not want 
+to put the libraries into WEB-INF/lib folder (for example, Maven dependencies 
+that are included in classpath), you must follow the class loading 
+instructions in the 
+[Wiki](https://github.com/itsvs/cwtrpc/wiki/Resolve:-Unable-to-locate-Spring-NamespaceHandler)
+of this project. Otherwise you may get "Unable to locate Spring 
+NamespaceHandler" error messages when starting your application. If you use
+other web application servers like Apache Tomcat, you will not have this 
+issue.
+
+The project includes a sample that demonstrates the controller component and
+the integration into Spring Security. It runs inside Eclipse IDE as GWT Web 
+Application. A detailed description how to setup Eclipse (required plugins)
+and how to checkout this sample can be found in the 
+[Wiki](https://github.com/itsvs/cwtrpc/wiki/Setup-of-Eclipse-to-checkout-and-run-Samples)
+of this project.
 
 ## Download ##
 The latest stable version is distributed as atrifacts stored in a Maven 

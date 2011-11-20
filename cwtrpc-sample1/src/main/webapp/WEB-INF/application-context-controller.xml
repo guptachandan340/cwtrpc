@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:controller="http://schema.itsvs.de/cwtrpc/controller"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://schema.itsvs.de/cwtrpc/controller http://schema.itsvs.de/cwtrpc/cwtrpc-controller-0.9.xsd">
 
@@ -25,14 +25,30 @@
 		class="de.itsvs.cwtrpc.sample1.server.service.SampleServiceImpl"
 		scope="session" />
 
-	<controller:cache-control>
-
-	</controller:cache-control>
+	<!-- 
+		Provides the default HTTP cache control configuration for GWT 
+		generated files that contain ".nocache." and ".cache." in their 
+		file names. Additional HTTP cache control configuration for 
+		specific URI patterns can be added as child items.
+	-->
+	<controller:cache-control />
 
 	<controller:controller>
+		<controller:description>
+			Provides the configuration of the controller.
+		</controller:description>
 		<controller:module module-name="sample1">
+			<controller:description>
+				Provides the configuration for GWT module sample1.
+			</controller:description>
 			<controller:autowired-service-group
-				base-packages="de.itsvs.cwtrpc.sample1.client.service" />
+				base-packages="de.itsvs.cwtrpc.sample1.client.service">
+				<controller:description>
+					Registers all remote services that are included in
+					package de.itsvs.cwtrpc.sample1.client.service and 
+					are defined as bean in the application context. 
+				</controller:description>
+			</controller:autowired-service-group>
 		</controller:module>
 	</controller:controller>
 
