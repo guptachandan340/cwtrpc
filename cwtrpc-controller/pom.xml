@@ -28,7 +28,7 @@
 	<artifactId>cwtrpc-controller</artifactId>
 	<packaging>jar</packaging>
 
-	<name>cwtrpc-controller</name>
+	<name>Controlled Web Toolkit RPC - Controller</name>
 	<url>http://projects.itsvs.de/cwtrpc/controller-${project.version}/</url>
 	<inceptionYear>2011</inceptionYear>	
 	<description>Provides a controller component for GWT based remote services, that can be configured in a Spring XML application context configuration file.</description>
