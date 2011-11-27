@@ -240,6 +240,9 @@
         			</plugin>
       			</plugins>
     		</build>
+    		<properties>
+    			<maven.compile.optimize>true</maven.compile.optimize>
+    		</properties>
     	</profile>
 	</profiles>
 
