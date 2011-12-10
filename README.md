@@ -98,7 +98,7 @@ project.
     	...
         <repository>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
