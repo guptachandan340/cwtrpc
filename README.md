@@ -1,4 +1,6 @@
-# CWTRPC - Controlled Web Toolkit RPC #
+# CWTRPC (Controlled Web Toolkit RPC) #
+
+For more detailed information about this open source software project, visit the project web site [CWTRPC (Controlled Web Toolkit RPC)](http://projects.itsvs.de/cwtrpc/).
 
 ## Introduction ##
 CWTRPC provides a controller component for GWT based remote services (GWT 
