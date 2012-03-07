@@ -91,27 +91,11 @@ and how to checkout this sample can be found in the
 of this project.
 
 ## Download ##
-The latest stable version is distributed as atrifacts stored in a Maven 
-repository. In order to use the controller component and the integration into
-Spring Security you must add the following configuration to the POM of your
-project.
+The latest stable version is distributed as atrifacts that are stored in 
+Maven Central repository. In order to use the controller component and the 
+integration into Spring Security you must add the following dependencies 
+to the POM of your project.
 
-    <repositories>
-    	...
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>maven-repository.itsvs.de</id>
-            <name>IT Services VS GmbH - Public Repository</name>
-            <url>http://maven-repository.itsvs.de/</url>
-            <layout>default</layout>
-        </repository>
-        ...
-    </repositories>
-    ...
     <dependencies>
     	...
         <dependency>
