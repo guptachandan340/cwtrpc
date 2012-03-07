@@ -112,7 +112,7 @@ to the POM of your project.
     </dependencies>
 
 ## License ##
-Copyright 2011 [IT Services VS GmbH][]
+Copyright 2011 - 2012 [IT Services VS GmbH][]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
