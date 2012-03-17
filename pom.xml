@@ -57,7 +57,7 @@
 	<scm>
 		<url>https://github.com/itsvs/cwtrpc</url>
 		<connection>scm:git:git://github.com/itsvs/cwtrpc.git</connection>
-		<developerConnection>scm:git:ssh://github.com/itsvs/cwtrpc.git</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/itsvs/cwtrpc.git</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
