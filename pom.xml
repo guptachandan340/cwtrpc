@@ -57,20 +57,20 @@
 	<scm>
 		<url>https://github.com/itsvs/cwtrpc</url>
 		<connection>scm:git:git://github.com/itsvs/cwtrpc.git</connection>
-		<developerConnection>${scm.developerConnection}</developerConnection>
+		<developerConnection>scm:git:ssh://github.com/itsvs/cwtrpc.git</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
-			<id>maven-repository.itsvs.de</id>
+			<id>sonatype-nexus-releases</id>
 			<layout>default</layout>
-			<name>IT Services VS GmbH - Public Repository</name>
-			<url>${repository.url}</url>
+			<name>Sonatype OSS Maven Repository - Releases</name>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>maven-snapshot-repository.itsvs.de</id>
+			<id>sonatype-nexus-snapshots</id>
 			<layout>default</layout>
-			<name>IT Services VS GmbH - Public Snapshot Repository</name>
-			<url>${snapshotRepository.url}</url>
+			<name>Sonatype OSS Maven Repository - Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -86,12 +86,10 @@
 
 		<servlet.version>2.5</servlet.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.security.version>3.0.6.RELEASE</spring.security.version>
 		<gwt.version>2.4.0</gwt.version>
 	
 		<manifest.builtBy>${user.name}</manifest.builtBy>
-		<scm.developerConnection>scm:git:ssh://git@github.com/itsvs/cwtrpc.git</scm.developerConnection>
-		<repository.url>http://maven-repository.itsvs.de</repository.url>
-		<snapshotRepository.url>http://maven-snapshot-repository.itsvs.de</snapshotRepository.url>
 	</properties>
 
 	<build>
@@ -114,6 +112,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.2.1</version>
+				<configuration>
+					<stagingRepository>https://oss.sonatype.org/service/local/staging/deploy/maven2/</stagingRepository>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -168,7 +169,7 @@
 						<footer><![CDATA[<a href="http://projects.itsvs.de/cwtrpc/"><b>Controlled<br>Web Toolkit RPC</b></a>]]></footer>
 						<bottom><![CDATA[
 							<div style="font-size:smaller;font-weight:bold;font-familiy:Arial,Helvetica,sans-serif;">
-								Copyright 2011 <a href="http://www.itsvs.de/" target="_blank">IT Services VS GmbH</a>
+								Copyright 2011 - 2012 <a href="http://www.itsvs.de/" target="_blank">IT Services VS GmbH</a>
 							</div>
 							<div style="font-size:smaller;margin-top:7px;">
         						<div>
