@@ -19,7 +19,7 @@ This version of CWTRPC provides the following features:
 *	Configurable HTTP cache control
 
 The following example demonstrates how easy it is to provide services, that 
-are configured as beans in a Spring XML application context, as a GWT based 
+are configured as beans in a Spring XML application context, as GWT based 
 remote services. 
 
 	@RemoteServiceRelativePath("hello.service")
@@ -112,7 +112,7 @@ to the POM of your project.
     </dependencies>
 
 ## License ##
-Copyright 2011 - 2012 [IT Services VS GmbH][]
+Copyright 2011 [IT Services VS GmbH][]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
